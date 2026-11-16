@@ -1,0 +1,26 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "doctor-utsugi"
+            }
+        ],
+        "Category": "Windows and Tasks",
+        "Description": "Tab strip to switch activities that stays in sync and accepts clicks",
+        "EnabledByDefault": true,
+        "FormFactors": [
+            "desktop"
+        ],
+        "Icon": "activities",
+        "Id": "io.github.doctorutsugi.activitytabs",
+        "License": "GPL-2.0+",
+        "Name": "Activity Tabs",
+        "Version": "1.2.0",
+        "Website": "https://github.com/doctor-utsugi/plasma-activity-tabs"
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.activities"
+    ]
+}
