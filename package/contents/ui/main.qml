@@ -75,10 +75,11 @@ PlasmoidItem {
         return null;
     }
 
-    // Rectangle of the tab the highlight sits on, between two tabs while sliding.
+    // Rectangle of the tab the highlight sits on, between two tabs while the fingers
+    // drag the slide. Switches made otherwise move it straight to the new tab.
     readonly property rect highlightRect: {
         const slideState = slide.properties;
-        const from = slideState.active === true ? tabFor(slideState.from) : null;
+        const from = slideState.active === true && slideState.gesture === true ? tabFor(slideState.from) : null;
         if (from) {
             const to = tabFor(slideState.to);
             const p = slideState.progress ?? 0;

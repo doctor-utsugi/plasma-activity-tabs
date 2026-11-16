@@ -29,7 +29,7 @@ systemctl --user restart plasma-plasmashell
 - The current activity gets a highlight bar on the edge that faces the screen.
 - With [kwin-activity-slide](https://github.com/doctor-utsugi/kwin-activity-slide), the highlight bar
   follows the touchpad swipe: it moves between the tabs as far as the fingers have dragged the next
-  activity in, and springs back with it.
+  activity in, and springs back with it. Other switches move it to the new tab at once.
 - The tabs follow the panel orientation (horizontal or vertical).
 - The context menu offers *Show Activity Manager* and *Configure Activities…*.
 
