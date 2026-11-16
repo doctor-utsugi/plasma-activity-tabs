@@ -91,6 +91,15 @@ PlasmoidItem {
     }
     property string lastIndicator: ""
 
+    // The panel can move the widget without any change visible from here, so check
+    // the tab positions now and then; nothing is sent when they haven't changed.
+    Timer {
+        interval: 1000
+        repeat: true
+        running: true
+        onTriggered: root.sendIndicator()
+    }
+
     // Layout changes come in bursts; send once they settle.
     Timer {
         id: indicatorTimer
