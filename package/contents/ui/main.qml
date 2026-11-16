@@ -7,7 +7,7 @@
     on the drifted tab do nothing. Here every tab is a plain MouseArea and the
     highlight is derived only from the model.
 
-    With the kwin-activity-slide effect, the highlight follows the slide while
+    With the activity slide effect from kwin-trackpad-gestures, the highlight follows the slide while
     the fingers drag the next activity in.
 */
 pragma ComponentBehavior: Bound
@@ -47,7 +47,7 @@ PlasmoidItem {
         id: activityModel
     }
 
-    // Published by the kwin-activity-slide effect; empty when it isn't loaded.
+    // Published by the activity slide effect (kwin-trackpad-gestures); empty when it isn't loaded.
     DBus.Properties {
         id: slide
         busType: DBus.BusType.Session
@@ -56,7 +56,7 @@ PlasmoidItem {
         iface: "io.github.doctorutsugi.ActivitySlide"
     }
 
-    // kwin-activity-slide draws this bar itself when it can, in step with the
+    // The activity slide effect draws this bar itself when it can, in step with the
     // fingers; Plasma learns of a swipe too late for a bar drawn here to keep up.
     readonly property bool effectDrawsBar: slide.properties.drawsIndicator === true
 

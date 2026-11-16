@@ -27,7 +27,7 @@ systemctl --user restart plasma-plasmashell
 - An activity with an icon shows the icon instead of its name, and the name appears in a tooltip.
   Set the icon in System Settings > Activities. Activities without an icon show their name.
 - The current activity gets a highlight bar on the edge that faces the screen.
-- With [kwin-activity-slide](https://github.com/doctor-utsugi/kwin-activity-slide), the highlight bar
+- With [kwin-trackpad-gestures](https://github.com/doctor-utsugi/kwin-trackpad-gestures), the highlight bar
   follows the touchpad swipe: it moves between the tabs as far as the fingers have dragged the next
   activity in, and springs back with it. Other switches move it to the new tab at once.
 - The tabs follow the panel orientation (horizontal or vertical).
