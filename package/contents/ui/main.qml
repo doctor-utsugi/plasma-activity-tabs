@@ -89,7 +89,6 @@ PlasmoidItem {
             iface: "io.github.doctorutsugi.ActivitySlide",
             member: "SetIndicator",
             arguments: [json],
-            signature: "s",
         });
     }
     property string lastIndicator: ""
