@@ -56,11 +56,9 @@ PlasmoidItem {
         iface: "io.github.doctorutsugi.ActivitySlide"
     }
 
-    // During a swipe the effect draws this bar itself, in step with the fingers;
-    // a bar drawn here would always be a frame or two behind.
+    // kwin-activity-slide draws this bar itself when it can, in step with the
+    // fingers; Plasma learns of a swipe too late for a bar drawn here to keep up.
     readonly property bool effectDrawsBar: slide.properties.drawsIndicator === true
-                                        && slide.properties.active === true
-                                        && slide.properties.gesture === true
 
     // Hands the effect the geometry of the bar for every tab, in the panel window's coordinates.
     function sendIndicator() {
