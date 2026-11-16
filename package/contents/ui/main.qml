@@ -13,6 +13,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import QtQuick.Window
 import QtQuick.Layouts
 
 import org.kde.plasma.plasmoid
@@ -53,6 +54,66 @@ PlasmoidItem {
         service: "org.kde.KWin"
         path: "/ActivitySlide"
         iface: "io.github.doctorutsugi.ActivitySlide"
+    }
+
+    // During a swipe the effect draws this bar itself, in step with the fingers;
+    // a bar drawn here would always be a frame or two behind.
+    readonly property bool effectDrawsBar: slide.properties.drawsIndicator === true
+                                        && slide.properties.active === true
+                                        && slide.properties.gesture === true
+
+    // Hands the effect the geometry of the bar for every tab, in the panel window's coordinates.
+    function sendIndicator() {
+        const tabRects = {};
+        for (let i = 0; i < tabRepeater.count; ++i) {
+            const tab = tabRepeater.itemAt(i);
+            if (tab) {
+                const p = tab.mapToItem(null, 0, 0);
+                tabRects[tab.model.id] = [p.x, p.y, tab.width, tab.height];
+            }
+        }
+        const json = JSON.stringify({
+            window: [root.Window.width, root.Window.height],
+            tabs: tabRects,
+            thickness: indicator.height,
+            color: String(Kirigami.Theme.highlightColor),
+            onTop: root.indicatorOnTop,
+        });
+        if (json === lastIndicator) {
+            return;
+        }
+        lastIndicator = json;
+        DBus.SessionBus.asyncCall({
+            service: "org.kde.KWin",
+            path: "/ActivitySlide",
+            iface: "io.github.doctorutsugi.ActivitySlide",
+            member: "SetIndicator",
+            arguments: [json],
+            signature: "s",
+        });
+    }
+    property string lastIndicator: ""
+
+    // Layout changes come in bursts; send once they settle.
+    Timer {
+        id: indicatorTimer
+        interval: 300
+        onTriggered: root.sendIndicator()
+    }
+    onWidthChanged: indicatorTimer.restart()
+    onHeightChanged: indicatorTimer.restart()
+    onXChanged: indicatorTimer.restart()
+    onYChanged: indicatorTimer.restart()
+    Window.onWidthChanged: indicatorTimer.restart()
+    Window.onHeightChanged: indicatorTimer.restart()
+    onHighlightRectChanged: indicatorTimer.restart()
+    // KWin restarts drop what the effect knew.
+    Connections {
+        target: slide
+        function onRefreshed() {
+            root.lastIndicator = "";
+            indicatorTimer.restart();
+        }
     }
 
     function tabFor(activityId) {
@@ -181,7 +242,7 @@ PlasmoidItem {
 
     Rectangle {
         id: indicator
-        visible: root.highlightRect.width > 0
+        visible: root.highlightRect.width > 0 && !root.effectDrawsBar
         color: Kirigami.Theme.highlightColor
         x: tabs.x + root.highlightRect.x
         y: tabs.y + (root.indicatorOnTop ? root.highlightRect.y : root.highlightRect.y + root.highlightRect.height - height)
