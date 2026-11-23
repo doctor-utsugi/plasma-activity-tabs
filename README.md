@@ -24,7 +24,7 @@ systemctl --user restart plasma-plasmashell
 ## Behaviour
 
 - Click, or focus with Tab and press Space/Enter, to switch activity.
-- An activity with an icon shows the icon instead of its name, and the name appears in a tooltip.
+- An activity with an icon shows the icon instead of its name.
   Set the icon in System Settings > Activities. Activities without an icon show their name.
 - The current activity gets a highlight bar on the edge that faces the screen.
 - With [kwin-trackpad-gestures](https://github.com/doctor-utsugi/kwin-trackpad-gestures), the highlight bar

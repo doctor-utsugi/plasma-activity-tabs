@@ -183,7 +183,7 @@ PlasmoidItem {
                 required property var model
 
                 readonly property bool isCurrent: model.current === true
-                // Activities with an icon show it instead of their name, which moves to a tooltip.
+                // Activities with an icon show it instead of their name.
                 readonly property bool showIcon: (model.icon ?? "") !== ""
                 readonly property Item content: showIcon ? icon : label
 
@@ -226,11 +226,6 @@ PlasmoidItem {
                     width: implicitWidth
                     height: implicitHeight
                     opacity: tab.isCurrent ? 1 : 0.5
-                }
-
-                PlasmaComponents.ToolTip {
-                    text: tab.model.name
-                    visible: tab.showIcon && tab.containsMouse
                 }
 
                 PlasmaComponents.Label {

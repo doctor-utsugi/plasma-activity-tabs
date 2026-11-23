@@ -15,7 +15,7 @@
         "Id": "io.github.doctorutsugi.activitytabs",
         "License": "GPL-2.0+",
         "Name": "Activity Tabs",
-        "Version": "1.2.0",
+        "Version": "1.3.0",
         "Website": "https://github.com/doctor-utsugi/plasma-activity-tabs"
     },
     "KPackageStructure": "Plasma/Applet",
